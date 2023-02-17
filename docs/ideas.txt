@@ -1,1 +1,5 @@
+IDEAS-
 
+	Drunkinator- Locks phone’s messaging apps, you must answer nerd shit in order to disable messages. The point of the app is to prevent drunk texts
+
+	Head to Head-  using Spotify API to go “head to head” with your friends and compare listening stats. Point of the app is to get statistics on your Spotify wrapped early.
