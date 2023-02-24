@@ -16,4 +16,4 @@ Planned API's:
 * Spotify
 * OpenAI GPT-3
 * Youtube (Unsure)
-* DALL·E (Could be interesting but could also be too insane)
+* OpenAI DALL·E (Could be interesting but could also be too insane)
