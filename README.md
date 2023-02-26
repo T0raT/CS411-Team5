@@ -10,7 +10,7 @@ Web application that allows you to compare your "Spotify Wrapped" (Spotify API) 
 Current tech stack choice:
 * React.js
 * Flask
-* MongoDB <sub>(tbh we don't even know what to use this for yet but its required lol.)</sub>
+* MongoDB
 
 Planned API's:
 * Spotify
