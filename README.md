@@ -15,5 +15,4 @@ Current tech stack choice:
 Planned API's:
 * Spotify
 * OpenAI GPT-3
-* Youtube (Unsure)
 * OpenAI DALL·E (Could be interesting but could also be too insane)
