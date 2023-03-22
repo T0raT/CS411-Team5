@@ -1,0 +1,5 @@
+As a new user
+
+I want to be able to register an account
+
+So I can save my Head-to-head history with other users
