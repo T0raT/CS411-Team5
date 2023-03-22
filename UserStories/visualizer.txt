@@ -1,0 +1,5 @@
+As a music fan, I love listening to my playlist, but sometimes it would be nice to visualize it. 
+
+For example, Spotify Wrapped sometimes gives you “auras,” or what “type of listener” you are. 
+
+I want to be able to see a picture or some type of generated image that combines all the different types of music I listen to into one singular symbol.

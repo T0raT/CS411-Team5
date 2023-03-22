@@ -1,0 +1,3 @@
+As a new user
+
+I want to be able to register an account so I can compare and save my Head-to-head history with other users. I want this process to be hassel free and smooth.
