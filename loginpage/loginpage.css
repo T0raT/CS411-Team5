@@ -1,0 +1,87 @@
+input {
+  font-family: Monsterrat;
+  font-size: 16px;
+  display: block;
+  width: 300px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border-style: solid;
+  transition: border-width 125ms, box-shadow 125ms;
+  border-width: thin;
+}
+
+button {
+  font-family: Monsterrat;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: Monsterrat;
+  text-align: center;
+}
+
+::placeholder {
+  padding-left: 2px;
+}
+.reg-name {
+}
+.reg-name:hover {
+  box-shadow: 0px 3px 10px grey;
+  border-width: 2px;
+}
+
+.reg-email {
+}
+.reg-email:hover {
+  box-shadow: 0px 3px 10px grey;
+  border-width: 2px;
+}
+
+.sign-up {
+  display: block;
+  color: white;
+  background-color: #1da1f2;
+  width: 332px;
+  border: none;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  border-radius: 7px;
+  transition: box-shadow 125ms;
+}
+.sign-up:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 15px grey;
+}
+.sign-up:active {
+  background: #148dd8;
+}
+.sign-up span {
+  display: inline-block;
+  position: relative;
+  transition: 125ms;
+}
+.sign-up span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 125ms;
+}
+.sign-up:hover span {
+  padding-right: 25px;
+}
+.sign-up:hover span:after {
+  opacity: 1;
+  right: 0;
+}
