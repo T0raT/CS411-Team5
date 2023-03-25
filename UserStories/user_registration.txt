@@ -1,3 +1,11 @@
-As a new user
+As a avid music enthusiast
 
-I want to be able to register an account so I can compare and save my Head-to-head history with other users. I want this process to be hassel free and smooth.
+I want to be able to register an account without extra steps.
+
+Since I already have an spotify account, just using my pre-existing spotify account would do.
+
+This way, the website can have direct access to my listening history while being user 
+friendly.
+
+Knowing that I can just jump right in with a streamlined process provides an 
+effortless and enjoyable experience as an new user.
