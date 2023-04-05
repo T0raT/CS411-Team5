@@ -17,7 +17,7 @@ Planned API's:
 - Spotify
 - OpenAI DALL·E
 
-##Installation
+## Installation
 
 1. Use virtualenv to create a environment and start it (perferrably python3.9+)
 
