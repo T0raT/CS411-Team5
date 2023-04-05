@@ -31,7 +31,7 @@ virtualenv -p python3.10 [environment name]
 pip install -r requirements.txt
 ```
 
-3. create a .env file with the following
+3. create a .env file with the following (add to .gitignore)
 
 ```
 client_id = "YOUR ID HERE"
