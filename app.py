@@ -44,7 +44,7 @@ def getTracks():
         print("user not logged in")
         redirect(url_for("login", _external=False))
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    return str(sp.current_user_top_tracks(limit=50, offset=0)['items'][0])
+    return str(sp.current_user_top_tracks(limit=50, offset=0)['items'][1])
 
 
 def get_token():
