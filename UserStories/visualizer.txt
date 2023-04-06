@@ -1,0 +1,19 @@
+As a music enthusiasts, I love listening to my playlist, but sometimes it would be 
+nice to visualize it. 
+
+For example, Spotify Wrapped sometimes gives you “auras,” or what “type of listener” 
+you are. By spotify's definiton, it generates this aura image based on the "energy" 
+from your favorite music albums.
+
+The Head to Head wep app will check my monthly or weekly listening history and find my 
+top songs and artists.
+
+This way, Head to Head will be able to ultilize an image generator to generate an 
+personalized album cover of my listening history. (The more im typing this the more I 
+feel like im describing NFTs LMFAO)
+
+Visualization of my favorite music allows me to easily share a personalized image with 
+my friends.
+
+I can also easily engage with other music enthuists with a truly unique "album cover" 
+that represents my passion for music.
