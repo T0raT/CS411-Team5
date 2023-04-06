@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 load_dotenv()
 
-#nNEVER push the actual key to github, create and keep in .env file
+#NEVER push the actual key to github, create and keep in .env file
 #Create a .env if you dont have one already
 #I also have no idea what this session cookie stuff actually do[Tiger]
 app.secret_key = os.getenv("secret_key")
