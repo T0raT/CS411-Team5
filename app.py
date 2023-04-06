@@ -18,10 +18,13 @@ TOKEN_INFO = "token_info"
 
 @app.route('/')
 def login():
+    return render_template('landingpage.html')
+
+@app.route('/auth')
+def auth():
     sp_oauth = create_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
-
 
 @app.route('/redirect')
 def redirectSite():
@@ -41,7 +44,7 @@ def getTracks():
         print("user not logged in")
         redirect(url_for("login", _external=False))
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    return str(sp.current_user_top_tracks(limit=50, offset=0)['items'][0])
+    return str(sp.current_user_top_tracks(limit=50, offset=0)['items'][1])
 
 
 def get_token():
