@@ -18,10 +18,13 @@ TOKEN_INFO = "token_info"
 
 @app.route('/')
 def login():
+    return render_template('landingpage.html')
+
+@app.route('/auth')
+def auth():
     sp_oauth = create_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
-
 
 @app.route('/redirect')
 def redirectSite():

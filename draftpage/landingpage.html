@@ -1,15 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="landingpage.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(120deg, #000000 0%, #800080 100%);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        transition: background 0.5s;
+      }
+
+      .container {
+        text-align: center;
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .title {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .spotify-login-btn {
+        display: inline-block;
+        background-color: #1db954;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .spotify-login-btn:hover {
+        background-color: #1ed760;
+      }
+
+      @media (max-width: 480px) {
+        .title {
+          font-size: 2rem;
+        }
+
+        .spotify-login-btn {
+          font-size: 0.9rem;
+          padding: 10px 20px;
+        }
+      }
+    </style>
     <title>Head2Head</title>
-</head>
-<body>
-<div class="container">
-    <h1 class="title">Welcome to Head2Head!</h1>
-    <a href="{{ url_for('login') }}" class="spotify-login-btn">Login with Spotify</a>
-</div>
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Welcome to Head2Head!</h1>
+      <a href="{{url_for('auth')}}" class="spotify-login-btn"
+        >Login with Spotify</a
+      >
+    </div>
+  </body>
 </html>
