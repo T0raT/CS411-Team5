@@ -5,55 +5,96 @@
 }
 
 body {
-  background: linear-gradient(120deg, #000000 0%, #800080 100%);
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  transition: background 0.5s;
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #000000,
+    #99005e,
+    #800080bb,
+    #00b6ad,
+    #1db954b0,
+    #000000
+  );
+  background-size: 300% 300%;
+  animation: gradientAnimation 60s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .container {
   text-align: center;
-  color: #ffffff;
-  padding: 30px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  max-width: 400px;
 }
 
 .title {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  font-size: 2rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  color: #ffffff;
+  margin-bottom: 1rem;
 }
 
 .spotify-login-btn {
   display: inline-block;
-  background-color: #1db954;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  font-weight: bolder;
   color: #ffffff;
-  font-weight: bold;
   text-decoration: none;
-  padding: 12px 24px;
-  font-size: 1rem;
+  background-color: #1db954;
   border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding-right: 20px;
+  transition: padding-right 0.3s ease;
+  animation: buttonAnimation 1s ease infinite;
 }
 
 .spotify-login-btn:hover {
-  background-color: #1ed760;
+  padding-right: 40px; /* Increase padding-right on hover */
 }
 
-@media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
+.spotify-login-btn::after {
+  content: ">>";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s, right 0.3s ease 10ms; /* Add delay to both opacity and right */
+}
 
-  .spotify-login-btn {
-    font-size: 0.9rem;
-    padding: 10px 20px;
+.spotify-login-btn:hover::after {
+  opacity: 1;
+  right: 10px;
+}
+
+@keyframes buttonAnimation {
+  0%,
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
   }
 }
