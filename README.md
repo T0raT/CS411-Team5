@@ -24,7 +24,7 @@ Planned API's:
 virtualenv -p python3.10 environmentName
 ```
 
-2. Start the virtual environment in terminal
+2. Start the virtual environment in terminal, you're always going to work within this environment
 ```
 Mac/Linux:
 source environmentName/bin/activate
