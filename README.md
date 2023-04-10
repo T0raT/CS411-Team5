@@ -20,19 +20,25 @@ Planned API's:
 ## Installation
 
 1. Use virtualenv to create a environment and start it (perferrably python3.9+)
-
 ```
-virtualenv -p python3.10 [environment name]
+virtualenv -p python3.10 environmentName
 ```
 
-2. Use this command to install packages
+2. Start the virtual environment in terminal, you're always going to work within this environment
+```
+Mac/Linux:
+source environmentName/bin/activate
 
+Windows cmd:
+environmentName\Scripts\activate
+```
+
+3. Use this command to install packages
 ```
 pip install -r requirements.txt
 ```
 
-3. create a .env file with the following (add to .gitignore)
-
+4. create a .env file with the following (add to .gitignore)
 ```
 client_id = "YOUR ID HERE"
 client_secret = "YOUR SECRET HERE"
@@ -41,4 +47,4 @@ secret_key = "GENERATE A PASSWORD"
 secret_config = 'SOME NAME'
 ```
 
-4. Start the flask server
+5. Start the flask server with command "flask run"
