@@ -65,6 +65,7 @@
       <div class="list-container">
         <h1>Top 30 Tracks for the Past Month</h1>
         <ol>
+          <!--This is using jinja2 syntax, which is what flask uses-->
           {% for track in top_tracks %}
           <li>{{ track.name }} by {{ track.artists[0].name }}</li>
           {% endfor %}
