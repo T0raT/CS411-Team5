@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Top Tracks and Artists</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #5b86e5, #e15594);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+      .list-container {
+        flex: 1;
+        padding: 40px;
+        border-right: 0px solid rgba(255, 255, 255, 0.1);
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      ol {
+        list-style: none;
+      }
+      li {
+        font-size: 16px;
+        font-weight: 300;
+        padding: 5px 0;
+        position: relative;
+        margin-bottom: 10px;
+      }
+      li:before {
+        content: counter(item) ".";
+        counter-increment: item;
+        position: absolute;
+        left: -30px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="list-container">
+        <h1>Top 30 Tracks for the Past Month</h1>
+        <ol>
+          {% for track in top_tracks %}
+          <li>{{ track.name }} by {{ track.artists[0].name }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+      <div class="list-container">
+        <h1>Top 30 Artists for the Past Month</h1>
+        <ol>
+          {% for artist in top_artists %}
+          <li>{{ artist.name }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>
