@@ -19,8 +19,8 @@ body {
     #1db954b0,
     #000000
   );
-  background-size: 300% 300%;
-  animation: gradientAnimation 60s ease infinite;
+  background-size: 400% 400%;
+  animation: gradientAnimation 30s ease infinite;
 }
 
 @keyframes gradientAnimation {
@@ -31,7 +31,7 @@ body {
     background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 50% 0%;
   }
 }
 
@@ -65,26 +65,7 @@ body {
   overflow: hidden;
   padding-right: 20px;
   transition: padding-right 0.3s ease;
-  animation: buttonAnimation 1s ease infinite;
-}
-
-.spotify-login-btn:hover {
-  padding-right: 40px; /* Increase padding-right on hover */
-}
-
-.spotify-login-btn::after {
-  content: ">>";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease 0.1s, right 0.3s ease 10ms; /* Add delay to both opacity and right */
-}
-
-.spotify-login-btn:hover::after {
-  opacity: 1;
-  right: 10px;
+  animation: buttonAnimation 2s ease infinite;
 }
 
 @keyframes buttonAnimation {
