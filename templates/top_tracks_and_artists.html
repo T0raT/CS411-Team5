@@ -4,22 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Top Tracks and Artists</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       * {
-        box-sizing: border-box;
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
+
       body {
-        font-family: "Roboto", sans-serif;
+        font-family: Arial, sans-serif;
         background: linear-gradient(135deg, #5b86e5, #e15594);
-        color: #fff;
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 1.6;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
+        width: 100%;
         padding: 20px;
       }
+
       .container {
         display: flex;
         justify-content: space-between;
@@ -30,19 +40,26 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
         overflow: hidden;
       }
-      .list-container {
+      .list-container-tracks {
         flex: 1;
         padding: 40px;
-        border-right: 0px solid rgba(255, 255, 255, 0.1);
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
       }
+      .list-container-artists {
+        flex: 1;
+        padding: 40px;
+      }
+
       h1 {
         font-size: 24px;
         font-weight: 700;
         text-align: center;
         margin-bottom: 20px;
       }
+
       ol {
         list-style: none;
+        counter-reset: item;
       }
       li {
         font-size: 16px;
@@ -62,16 +79,15 @@
   </head>
   <body>
     <div class="container">
-      <div class="list-container">
+      <div class="list-container-tracks">
         <h1>Top 30 Tracks for the Past Month</h1>
         <ol>
-          <!--This is using jinja2 syntax, which is what flask uses-->
           {% for track in top_tracks %}
           <li>{{ track.name }} by {{ track.artists[0].name }}</li>
           {% endfor %}
         </ol>
       </div>
-      <div class="list-container">
+      <div class="list-container-artists">
         <h1>Top 30 Artists for the Past Month</h1>
         <ol>
           {% for artist in top_artists %}
