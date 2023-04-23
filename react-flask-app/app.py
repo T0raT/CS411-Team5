@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, session, redirect, render_template
+from flask import Flask, request, url_for, session, redirect, render_template, jsonify
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 import time
@@ -18,13 +18,14 @@ TOKEN_INFO = "token_info"
 
 @app.route('/')
 def login():
-    return render_template('landingpage.html')
+    return jsonify({"message": "Welcome to Head2Head"})
 
 @app.route('/auth')
 def auth():
+
     sp_oauth = create_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
-    return redirect(auth_url)
+    return jsonify({"auth_url": auth_url})
 
 @app.route('/redirect')
 def redirectSite():
@@ -32,23 +33,17 @@ def redirectSite():
     session.clear()
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
-    session[TOKEN_INFO] = token_info
-    return redirect(url_for('getTracks', external=True))
+    return jsonify({"access_token": token_info['access_token'], "refresh_token": token_info['refresh_token'], "expires_at": token_info['expires_at']})
 
 
-@app.route('/getTracks')
+
+@app.route('/api/getTracks')
 def getTracks():
-    try:
-        token_info = get_token()
-    except:
-        print("user not logged in")
-        redirect(url_for("login", _external=False))
-    sp = spotipy.Spotify(auth=token_info['access_token'])
-    # Get top 30 tracks for the past month
+    access_token = request.headers.get('Authorization').split(" ")[1]
+    sp = spotipy.Spotify(auth=access_token)
     top_tracks = sp.current_user_top_tracks(limit=30, offset=0, time_range='short_term')['items']
-    # Get top 30 artists for the past month
     top_artists = sp.current_user_top_artists(limit=30, offset=0, time_range='short_term')['items']
-    return render_template('top_tracks_and_artists.html', top_tracks=top_tracks, top_artists=top_artists)
+    return jsonify({"top_tracks": top_tracks, "top_artists": top_artists})
 
 
 def get_token():
@@ -68,7 +63,9 @@ def create_spotify_oauth():
     return SpotifyOAuth(
         client_id=os.getenv("client_id"),
         client_secret=os.getenv("client_secret"),
-        redirect_uri=url_for('redirectSite', _external=True),
+        redirect_uri="http://localhost:3000/redirect",
         scope="user-top-read"
-        # Scope for top tracks, unsure how to use multiple scopes [Tiger]
     )
+    
+if __name__ == '__main__':
+    app.run(debug=True)
