@@ -1,8 +1,7 @@
+import openai, requests, json, time, os
 from flask import Flask, request, url_for, session, redirect, render_template
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
-import time
-import os
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -13,6 +12,7 @@ load_dotenv()
 # I also have no idea what this session cookie stuff actually do[Tiger]
 app.secret_key = os.getenv("secret_key")
 app.config['SESSION_COOKIE_NAME'] = os.getenv('secret_config')
+openai.api_key = os.getenv("H2H_Key")
 TOKEN_INFO = "token_info"
 
 
@@ -49,6 +49,35 @@ def getTracks():
     # Get top 30 artists for the past month
     top_artists = sp.current_user_top_artists(limit=30, offset=0, time_range='short_term')['items']
     return render_template('top_tracks_and_artists.html', top_tracks=top_tracks, top_artists=top_artists)
+
+@app.route('/generate_cover')
+def generate_cover():
+    try:
+        token_info = get_token()
+    except:
+        print("user not logged in")
+        return redirect(url_for("login", _external=False))
+
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+    top_tracks = sp.current_user_top_tracks(limit=5, offset=0, time_range='short_term')['items']
+    song_titles = [track['name'] for track in top_tracks]
+    prompt_temp = f"An album cover for a compilation of top songs: {', '.join(song_titles)}"
+    print(prompt_temp)
+    image_url = generate_image(prompt_temp)
+
+    if image_url:
+        return render_template('album_cover.html', image_url=image_url)
+    else:
+        return render_template('error.html', message="Error generating album cover")
+
+def generate_image(prompt_temp):
+    response = openai.Image.create(
+        prompt= prompt_temp,
+        n=1,
+        size="512x512"
+    )
+    image_url = response['data'][0]['url']
+    return image_url
 
 
 def get_token():
