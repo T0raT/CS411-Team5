@@ -9,7 +9,6 @@ load_dotenv()
 
 # NEVER push the actual key to GitHub, create and keep in .env file
 # Create a .env if you don't have one already
-# I also have no idea what this session cookie stuff actually do[Tiger]
 app.secret_key = os.getenv("secret_key")
 app.config['SESSION_COOKIE_NAME'] = os.getenv('secret_config')
 openai.api_key = os.getenv("H2H_Key")
@@ -99,5 +98,4 @@ def create_spotify_oauth():
         client_secret=os.getenv("client_secret"),
         redirect_uri=url_for('redirectSite', _external=True),
         scope="user-top-read"
-        # Scope for top tracks, unsure how to use multiple scopes [Tiger]
     )
