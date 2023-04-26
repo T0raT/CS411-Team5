@@ -22,12 +22,38 @@
         color: #ffffff;
         font-size: 18px;
         line-height: 1.6;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         min-height: 100vh;
         width: 100%;
         padding: 20px;
+      }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .generator-buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .top5-button,
+      .random-button,
+      .genre-button {
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: underline;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: block;
       }
 
       .container {
@@ -39,6 +65,8 @@
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
         overflow: hidden;
+        justify-content: center;
+        flex-wrap: wrap;
       }
       .list-container-tracks {
         flex: 1;
@@ -78,25 +106,39 @@
     </style>
   </head>
   <body>
-    <a class="album_page" href="{{ url_for('generate_cover') }}">
-      <button>Generate Custom Album Cover</button>
-    </a>
-    <div class="container">
-      <div class="list-container-tracks">
-        <h1>Top 30 Tracks for the Past Month</h1>
-        <ol>
-          {% for track in top_tracks %}
-          <li>{{ track.name }} by {{ track.artists[0].name }}</li>
-          {% endfor %}
-        </ol>
+    <div class="wrapper">
+      <div class="generator-buttons">
+        <a href="{{ url_for('generate_cover') }}">
+          <button class="top5-button">Album Cover Generator: Top 5</button>
+        </a>
+        <a>
+          <button class="random-button">
+            Generate Custom Album Cover: Random
+          </button>
+        </a>
+        <a>
+          <button class="genre-button">
+            Generate Custom Album Cover: Genre
+          </button>
+        </a>
       </div>
-      <div class="list-container-artists">
-        <h1>Top 30 Artists for the Past Month</h1>
-        <ol>
-          {% for artist in top_artists %}
-          <li>{{ artist.name }}</li>
-          {% endfor %}
-        </ol>
+      <div class="container">
+        <div class="list-container-tracks">
+          <h1>Top 30 Tracks for the Past Month</h1>
+          <ol>
+            {% for track in top_tracks %}
+            <li>{{ track.name }} by {{ track.artists[0].name }}</li>
+            {% endfor %}
+          </ol>
+        </div>
+        <div class="list-container-artists">
+          <h1>Top 30 Artists for the Past Month</h1>
+          <ol>
+            {% for artist in top_artists %}
+            <li>{{ artist.name }}</li>
+            {% endfor %}
+          </ol>
+        </div>
       </div>
     </div>
   </body>
