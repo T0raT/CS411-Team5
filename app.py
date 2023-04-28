@@ -80,7 +80,7 @@ def generate_cover_random():
         return redirect(url_for("login", _external=False))
 
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    top_tracks = sp.current_user_top_tracks(limit=30, offset=0, time_range='short_term')['items']
+    top_tracks = sp.current_user_top_tracks(limit=50, offset=0, time_range='short_term')['items']
     song_titles = [track['name'] for track in top_tracks]
     song_random = random.sample(song_titles, 5)
     prompt_temp = f"An album cover for a compilation of these songs: {', '.join(song_random)}"
