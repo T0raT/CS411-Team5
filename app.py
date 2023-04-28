@@ -1,4 +1,4 @@
-import openai, requests, json, time, os
+import openai, requests, json, time, os, random
 from flask import Flask, request, url_for, session, redirect, render_template
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
@@ -49,6 +49,7 @@ def getTracks():
     top_artists = sp.current_user_top_artists(limit=30, offset=0, time_range='short_term')['items']
     return render_template('top_tracks_and_artists.html', top_tracks=top_tracks, top_artists=top_artists)
 
+
 @app.route('/generate_cover')
 def generate_cover():
     try:
@@ -60,7 +61,7 @@ def generate_cover():
     sp = spotipy.Spotify(auth=token_info['access_token'])
     top_tracks = sp.current_user_top_tracks(limit=5, offset=0, time_range='short_term')['items']
     song_titles = [track['name'] for track in top_tracks]
-    prompt_temp = f"An album cover for a compilation of top songs: {', '.join(song_titles)}"
+    prompt_temp = f"An album cover for a compilation of these songs: {', '.join(song_titles)}"
     print(prompt_temp)
     image_url = generate_image(prompt_temp)
 
@@ -68,6 +69,54 @@ def generate_cover():
         return render_template('album_cover.html', image_url=image_url)
     else:
         return render_template('error.html', message="Error generating album cover")
+
+
+@app.route('/generate_cover_random')
+def generate_cover_random():
+    try:
+        token_info = get_token()
+    except:
+        print("user not logged in")
+        return redirect(url_for("login", _external=False))
+
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+    top_tracks = sp.current_user_top_tracks(limit=30, offset=0, time_range='short_term')['items']
+    song_titles = [track['name'] for track in top_tracks]
+    song_random = random.sample(song_titles, 5)
+    prompt_temp = f"An album cover for a compilation of these songs: {', '.join(song_random)}"
+    print(prompt_temp)
+    image_url = generate_image(prompt_temp)
+    if image_url:
+        return render_template('album_cover.html', image_url=image_url)
+    else:
+        return render_template('error.html', message="Error generating album cover")
+
+
+@app.route('/generate_cover_artistGenre')
+def generate_cover_artistGenre():
+    try:
+        token_info = get_token()
+    except:
+        print("user not logged in")
+        return redirect(url_for("login", _external=False))
+
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+    top_artists = sp.current_user_top_artists(limit=5, offset=0, time_range='short_term')['items']
+    top_genres = []
+    for artist in top_artists:
+        if artist['genres']:
+            top_genres.append(', '.join(artist['genres']))
+
+    top_genres = ', '.join(top_genres)
+    print(top_genres)
+    prompt_temp = f"An album cover for a compilation of these genres: {top_genres}"
+    print(prompt_temp)
+    image_url = generate_image(prompt_temp)
+    if image_url:
+        return render_template('album_cover.html', image_url=image_url)
+    else:
+        return render_template('error.html', message="Error generating album cover")
+
 
 def generate_image(prompt_temp):
     response = openai.Image.create(
@@ -97,5 +146,5 @@ def create_spotify_oauth():
         client_id=os.getenv("client_id"),
         client_secret=os.getenv("client_secret"),
         redirect_uri=url_for('redirectSite', _external=True),
-        scope="user-top-read"
+        scope="user-top-read, user-library-read"
     )
