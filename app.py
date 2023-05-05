@@ -1,5 +1,9 @@
 from flask import Flask, request, url_for, session, redirect, render_template
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import spotipy
+import mysql.connector
+import requests
 from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
 import time
 import os
@@ -8,12 +12,15 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 load_dotenv()
 
+
 # NEVER push the actual key to GitHub, create and keep in .env file
 # Create a .env if you don't have one already
 # I also have no idea what this session cookie stuff actually do[Tiger]
 app.secret_key = os.getenv("secret_key")
 app.config['SESSION_COOKIE_NAME'] = os.getenv('secret_config')
 TOKEN_INFO = "token_info"
+
+
 
 
 @app.route('/')
@@ -72,3 +79,75 @@ def create_spotify_oauth():
         scope="user-top-read"
         # Scope for top tracks, unsure how to use multiple scopes [Tiger]
     )
+
+@app.route('/songstorage')
+def dbconnector():
+    # connecting to the MySQL Database
+    db = mysql.connector.connect(
+        user = 'root',
+        password = 'root',
+        host = 'localhost',
+        database = 'H2HDB'
+    )
+    
+    top_tracks_url = "https://api.spotify.com/v1/me/top/tracks"
+
+    token_info = get_token()['access_token']
+    
+    headers = {
+        "Authorization": f"Bearer {token_info}"
+    }
+    
+    params = {
+        "limit": 30,
+        "time_range": "short_term"
+    }
+
+    cursor = db.cursor()
+
+    table = "CREATE TABLE IF NOT EXISTS top_songs(track_name VARCHAR(100), artist_name VARCHAR(100), track_popularity VARCHAR(3));"
+    cursor.execute(table)
+    insert_st = "INSERT INTO top_songs VALUES(%s, %s, %s);"
+
+    response = requests.get(top_tracks_url, headers=headers, params=params)
+    top_tracks_data = response.json()["items"]
+
+    for track in top_tracks_data:
+        track_name = track["name"]
+        print("track name: ", track_name)
+        artist_name = track["artists"][0]["name"]
+        print("artist name: ", artist_name)
+        track_popularity = track["popularity"]
+        print("track popularity: ", track_popularity)
+        values = (track_name, artist_name, track_popularity)
+        print()
+        cursor.execute(insert_st, values)
+    
+    top_artists_url = "https://api.spotify.com/v1/me/top/artists"
+
+    headers2 = {
+        "Authorization": f"Bearer {token_info}"
+    }
+    
+    params2 = {
+        "limit": 30,
+        "time_range": "short_term"
+    }
+
+    table2 = "CREATE TABLE IF NOT EXISTS top_artists(artist_name VARCHAR(100), plays VARCHAR(200));"
+    cursor.execute(table2)
+    insert2_st = "INSERT INTO top_artists VALUES(%s, %s);"
+
+    response2 = requests.get(top_artists_url, headers=headers2, params=params2)
+    top_artists_data = response2.json()["items"]
+
+    for artist in top_artists_data:
+        artist_name = artist["name"]
+        plays = artist["popularity"]
+        values = (artist_name, plays)
+        cursor.execute(insert2_st, values)
+
+    db.commit()
+    db.close()
+
+    return {'message': 'Tracks exported successfully'}
